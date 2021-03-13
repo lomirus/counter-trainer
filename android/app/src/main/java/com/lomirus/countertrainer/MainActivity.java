@@ -1,4 +1,4 @@
-package com.countertrainer;
+package com.lomirus.countertrainer;
 
 import com.facebook.react.ReactActivity;
 

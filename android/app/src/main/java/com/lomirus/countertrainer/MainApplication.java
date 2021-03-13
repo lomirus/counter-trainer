@@ -1,4 +1,4 @@
-package com.countertrainer;
+package com.lomirus.countertrainer;
 
 import android.app.Application;
 import android.content.Context;
