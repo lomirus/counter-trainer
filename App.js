@@ -3,11 +3,34 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
 const LearnScreen = ({ navigation }) => {
+    return (
+        <Stack.Navigator initialRouteName="LearnHome">
+            <Stack.Screen 
+                name="LearnHome"
+                component={LearnHomeScreen}
+                options={{
+                    title: "Home"
+                }}
+                />
+            <Stack.Screen 
+                name="LearnMain"
+                component={LearnMainScreen}
+                options={{
+                    title: "Trainer"
+                }}
+                />
+        </Stack.Navigator>
+    )
+}
+
+const LearnHomeScreen = ({ navigation }) => {
     return (
         <View style={{
             flex: 1,
@@ -20,7 +43,28 @@ const LearnScreen = ({ navigation }) => {
                 color: "white"
             }}>Hello World</Text>
             <Button
-                title="Click me and nothing will take place" />
+                title="Click me to Trainer Screen"
+                onPress={
+                    () => {
+                        navigation.push("LearnMain")
+                    }
+                }/>
+        </View>
+    )
+}
+
+const LearnMainScreen = ({ navigation }) => {
+    return (
+        <View style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: '#6cf'
+        }}>
+            <Text style={{
+                fontSize: 24,
+                color: "white"
+            }}>Trainer</Text>
         </View>
     )
 }
