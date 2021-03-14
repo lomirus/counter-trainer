@@ -220,3 +220,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+// I don't know what does this line mean and I just copied it here from the docs because react-native-vector-icons taught me to do so.
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
