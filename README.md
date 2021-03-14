@@ -6,7 +6,7 @@ A Mobile App that helps you remember the numbers in foreign languages easily, es
 
 # Usage
 
-## Download & Install
+## Download & Install Dependencies
 
 Suppose you have installed `Node.js` and `Git`:
 
