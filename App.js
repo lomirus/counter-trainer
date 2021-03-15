@@ -9,6 +9,37 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
 
+class IconButton extends React.Component {
+    render() {
+        return (
+            <View>
+                <Pressable
+                    android_ripple={{
+                        color: 'rgba(0,0,0,0.1)',
+                        borderless: true,
+                        radius: 36,
+                    }}
+                    style={{
+                        borderRadius: 36,
+                        padding: 12,
+                        backgroundColor: "#007AFF",
+                        elevation: 8
+                    }}
+                    onPress={
+                        () => {
+                            this.props.navigation.push(this.props.link)
+                        }
+                    }>
+                    <MaterialIcons
+                        name={this.props.icon}
+                        size={48}
+                        color="white" />
+                </Pressable>
+            </View>
+        )
+    }
+}
+
 const LearnScreen = ({ navigation }) => {
     return (
         <Stack.Navigator initialRouteName="LearnHome">
@@ -48,50 +79,8 @@ const LearnHomeScreen = ({ navigation }) => {
                     justifyContent: "space-around",
                     width: "100%"
                 }}>
-                <Pressable
-                    android_ripple={{
-                        color: 'rgba(0,0,0,0.1)',
-                        borderless: true,
-                        radius: 36,
-                    }}
-                    style={{
-                        borderRadius: 36,
-                        padding: 12,
-                        backgroundColor: "#007AFF",
-                        elevation: 8
-                    }}
-                    onPress={
-                        () => {
-                            navigation.push("LearnMain")
-                        }
-                    }>
-                    <MaterialIcons
-                        name={'assessment'}
-                        size={48}
-                        color="white" />
-                </Pressable>
-                <Pressable
-                    android_ripple={{
-                        color: 'rgba(0,0,0,0.1)',
-                        borderless: true,
-                        radius: 36,
-                    }}
-                    style={{
-                        borderRadius: 36,
-                        padding: 12,
-                        backgroundColor: "#007AFF",
-                        elevation: 8
-                    }}
-                    onPress={
-                        () => {
-                            navigation.push("LearnMain")
-                        }
-                    }>
-                    <MaterialIcons
-                        name={'assignment'}
-                        size={48}
-                        color="white" />
-                </Pressable>
+                <IconButton link="LearnMain" icon="assessment" navigation={navigation} />
+                <IconButton link="LearnMain" icon="assignment" navigation={navigation} />
             </View>
         </View>
     )
