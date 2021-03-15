@@ -35,6 +35,11 @@ class IconButton extends React.Component {
                         size={48}
                         color="white" />
                 </Pressable>
+                <Text
+                    style={{
+                        marginTop: 8,
+                        textAlign: "center",
+                    }}>{this.props.text}</Text>
             </View>
         )
     }
@@ -79,8 +84,16 @@ const LearnHomeScreen = ({ navigation }) => {
                     justifyContent: "space-around",
                     width: "100%"
                 }}>
-                <IconButton link="LearnMain" icon="assessment" navigation={navigation} />
-                <IconButton link="LearnMain" icon="assignment" navigation={navigation} />
+                <IconButton
+                    link="LearnMain"
+                    icon="assessment"
+                    navigation={navigation}
+                    text="Practice" />
+                <IconButton
+                    link="LearnMain"
+                    icon="assignment"
+                    navigation={navigation}
+                    text="Test" />
             </View>
         </View>
     )
