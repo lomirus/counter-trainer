@@ -138,8 +138,13 @@ const TestPresetScreen = ({ navigation }) => {
 
 const SettingsScreen = () => {
     return (
-        <View>
-            <Text>Test Settings Screen</Text>
+        <View
+            style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
+            <Text>Nothing here yet</Text>
         </View>
     )
 }
