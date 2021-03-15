@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { createStore } from 'redux';
 import { View, Text, Button, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -8,8 +9,24 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
+const reducer = (state = { mode: 'Practice', type: 'Number' }, action) => ({
+    mode: action.type === "CHANGE_MODE" ? action.payload : state.mode,
+    type: action.type === "CHANGE_TYPE" ? action.payload : state.type
+})
+const store = createStore(reducer)
 
 class IconButton extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            chosen: props.text === store.getState()[props.form]
+        }
+        store.subscribe(() => {
+            this.setState({
+                chosen: props.text === store.getState()[props.form]
+            })
+        })
+    }
     render() {
         return (
             <View
@@ -25,13 +42,18 @@ class IconButton extends React.Component {
                     style={{
                         borderRadius: 36,
                         padding: 12,
-                        backgroundColor: "#007AFF",
+                        backgroundColor: (
+                            this.state.chosen ? "#007AFF" : "gray"
+                        ),
                         elevation: 8,
                         width: 72
                     }}
                     onPress={
                         () => {
-                            this.props.navigation.push(this.props.link)
+                            store.dispatch({
+                                type: "CHANGE_" + this.props.form.toUpperCase(),
+                                payload: this.props.text
+                            })
                         }
                     }>
                     <MaterialIcons
@@ -98,11 +120,13 @@ const LearnHomeScreen = ({ navigation }) => {
                 <IconButton
                     link="PracticePresetScreen"
                     icon="assessment"
+                    form="mode"
                     navigation={navigation}
                     text="Practice" />
                 <IconButton
                     link="TestPresetScreen"
                     icon="assignment"
+                    form="mode"
                     navigation={navigation}
                     text="Test" />
             </View>
@@ -120,11 +144,13 @@ const LearnHomeScreen = ({ navigation }) => {
                 <IconButton
                     link="PracticePresetScreen"
                     icon="calculate"
+                    form="type"
                     navigation={navigation}
                     text="Number" />
                 <IconButton
                     link="TestPresetScreen"
                     icon="event"
+                    form="type"
                     navigation={navigation}
                     text="Time & Date" />
             </View>
