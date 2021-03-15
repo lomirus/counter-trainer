@@ -12,7 +12,10 @@ const Stack = createStackNavigator()
 class IconButton extends React.Component {
     render() {
         return (
-            <View>
+            <View
+                style={{
+                    alignItems: "center"
+                }}>
                 <Pressable
                     android_ripple={{
                         color: 'rgba(0,0,0,0.1)',
@@ -23,7 +26,8 @@ class IconButton extends React.Component {
                         borderRadius: 36,
                         padding: 12,
                         backgroundColor: "#007AFF",
-                        elevation: 8
+                        elevation: 8,
+                        width: 72
                     }}
                     onPress={
                         () => {
@@ -81,15 +85,15 @@ const LearnHomeScreen = ({ navigation }) => {
             alignItems: "center"
         }}>
             <Text style={{
-                fontSize: 24,
-                color: "black",
-                marginBottom: 36
-            }}>Choose your learning mode</Text>
+                    fontSize: 20,
+                    color: "black",
+                }}>Mode</Text>
             <View
                 style={{
                     flexDirection: "row",
                     justifyContent: "space-around",
-                    width: "100%"
+                    width: "100%",
+                    marginBottom: 20
                 }}>
                 <IconButton
                     link="PracticePresetScreen"
@@ -101,6 +105,28 @@ const LearnHomeScreen = ({ navigation }) => {
                     icon="assignment"
                     navigation={navigation}
                     text="Test" />
+            </View>
+            
+            <Text style={{
+                    fontSize: 20,
+                    color: "black",
+                }}>Type</Text>
+            <View
+                style={{
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    width: "100%"
+                }}>
+                <IconButton
+                    link="PracticePresetScreen"
+                    icon="calculate"
+                    navigation={navigation}
+                    text="Number" />
+                <IconButton
+                    link="TestPresetScreen"
+                    icon="event"
+                    navigation={navigation}
+                    text="Time & Date" />
             </View>
         </View>
     )
