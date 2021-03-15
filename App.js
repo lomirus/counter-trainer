@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Button, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -85,9 +85,9 @@ const LearnHomeScreen = ({ navigation }) => {
             alignItems: "center"
         }}>
             <Text style={{
-                    fontSize: 20,
-                    color: "black",
-                }}>Mode</Text>
+                fontSize: 20,
+                color: "black",
+            }}>Mode</Text>
             <View
                 style={{
                     flexDirection: "row",
@@ -106,11 +106,11 @@ const LearnHomeScreen = ({ navigation }) => {
                     navigation={navigation}
                     text="Test" />
             </View>
-            
+
             <Text style={{
-                    fontSize: 20,
-                    color: "black",
-                }}>Type</Text>
+                fontSize: 20,
+                color: "black",
+            }}>Type</Text>
             <View
                 style={{
                     flexDirection: "row",
@@ -127,6 +127,15 @@ const LearnHomeScreen = ({ navigation }) => {
                     icon="event"
                     navigation={navigation}
                     text="Time & Date" />
+            </View>
+
+            <View
+                style={{
+                    marginTop: 36,
+                    fontSize: 48
+                }}>
+                <Button
+                    title="  Next  " />
             </View>
         </View>
     )
