@@ -56,8 +56,15 @@ const LearnScreen = ({ navigation }) => {
                 }}
             />
             <Stack.Screen
-                name="LearnMain"
-                component={LearnMainScreen}
+                name="PracticePresetScreen"
+                component={PracticePresetScreen}
+                options={{
+                    title: "Trainer"
+                }}
+            />
+            <Stack.Screen
+                name="TestPresetScreen"
+                component={TestPresetScreen}
                 options={{
                     title: "Trainer"
                 }}
@@ -85,12 +92,12 @@ const LearnHomeScreen = ({ navigation }) => {
                     width: "100%"
                 }}>
                 <IconButton
-                    link="LearnMain"
+                    link="PracticePresetScreen"
                     icon="assessment"
                     navigation={navigation}
                     text="Practice" />
                 <IconButton
-                    link="LearnMain"
+                    link="TestPresetScreen"
                     icon="assignment"
                     navigation={navigation}
                     text="Test" />
@@ -99,18 +106,32 @@ const LearnHomeScreen = ({ navigation }) => {
     )
 }
 
-const LearnMainScreen = ({ navigation }) => {
+const PracticePresetScreen = ({ navigation }) => {
     return (
-        <View style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: '#6cf'
-        }}>
+        <View
+            style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
             <Text style={{
-                fontSize: 24,
-                color: "white"
-            }}>Trainer</Text>
+                fontSize: 20
+            }}>Practice Preset Screen</Text>
+        </View>
+    )
+}
+
+const TestPresetScreen = ({ navigation }) => {
+    return (
+        <View
+            style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+            <Text style={{
+                fontSize: 20
+            }}>Test Preset Screen</Text>
         </View>
     )
 }
