@@ -20,7 +20,7 @@ const LearnScreen = () => {
                 name="Practice Number Preset Screen"
                 component={screens.practice.number.preset}
                 options={{
-                    title: "Trainer"
+                    title: "Preset"
                 }}
             />
             <Stack.Screen
@@ -34,7 +34,7 @@ const LearnScreen = () => {
                 name="Practice Time & Date Preset Screen"
                 component={screens.practice.time.preset}
                 options={{
-                    title: "Trainer"
+                    title: "Preset"
                 }}
             />
             <Stack.Screen
@@ -48,7 +48,7 @@ const LearnScreen = () => {
                 name="Test Number Preset Screen"
                 component={screens.test.number.preset}
                 options={{
-                    title: "Trainer"
+                    title: "Preset"
                 }}
             />
             <Stack.Screen
@@ -62,7 +62,7 @@ const LearnScreen = () => {
                 name="Test Time & Date Preset Screen"
                 component={screens.test.time.preset}
                 options={{
-                    title: "Trainer"
+                    title: "Preset"
                 }}
             />
             <Stack.Screen
