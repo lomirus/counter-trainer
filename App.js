@@ -10,30 +10,28 @@ import { SettingsScreen } from './src/screens/SettingsScreen'
 
 const Tab = createBottomTabNavigator()
 
-const App = () => {
-    return (
-        <NavigationContainer>
-            <Tab.Navigator
-                initialRouteName="Learn">
-                <Tab.Screen
-                    name="Learn"
-                    component={LearnScreen}
-                    options={{
-                        tabBarIcon: ({ focused, color, size }) => (
-                            <MaterialIcons name={'home'} size={size} color={color} />
-                        )
-                    }} />
-                <Tab.Screen
-                    name="Settings"
-                    component={SettingsScreen}
-                    options={{
-                        tabBarIcon: ({ focused, color, size }) => (
-                            <MaterialIcons name={'settings'} size={size} color={color} />
-                        )
-                    }} />
-            </Tab.Navigator>
-        </NavigationContainer>
-    );
-};
+const App = () => (
+    <NavigationContainer>
+        <Tab.Navigator
+            initialRouteName="Learn">
+            <Tab.Screen
+                name="Learn"
+                component={LearnScreen}
+                options={{
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <MaterialIcons name={'home'} size={size} color={color} />
+                    )
+                }} />
+            <Tab.Screen
+                name="Settings"
+                component={SettingsScreen}
+                options={{
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <MaterialIcons name={'settings'} size={size} color={color} />
+                    )
+                }} />
+        </Tab.Navigator>
+    </NavigationContainer>
+);
 
 export default App;
