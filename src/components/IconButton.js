@@ -9,11 +9,14 @@ export class IconButton extends React.Component {
         this.state = {
             chosen: props.text === store.getState()[props.form]
         }
-        store.subscribe(() => {
+        this.unsubscribe = store.subscribe(() => {
             this.setState({
                 chosen: props.text === store.getState()[props.form]
             })
         })
+    }
+    componentWillUnmount() {
+        this.unsubscribe()
     }
     render() {
         return (
@@ -43,7 +46,6 @@ export class IconButton extends React.Component {
                                 payload: this.props.text
                             })
                         }
-                    
                     }>
                     <MaterialIcons
                         name={this.props.icon}

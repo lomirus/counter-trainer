@@ -3,6 +3,7 @@ import { View, Text, Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { IconButton } from '../components/IconButton'
+import { store } from '../store'
 
 const Stack = createStackNavigator()
 
@@ -17,15 +18,57 @@ const LearnScreen = ({ navigation }) => {
                 }}
             />
             <Stack.Screen
-                name="PracticePresetScreen"
-                component={PracticePresetScreen}
+                name="Practice Number Preset Screen"
+                component={screens.practice.number.preset}
                 options={{
                     title: "Trainer"
                 }}
             />
             <Stack.Screen
-                name="TestPresetScreen"
-                component={TestPresetScreen}
+                name="Practice Number Main Screen"
+                component={screens.practice.number.main}
+                options={{
+                    title: "Trainer"
+                }}
+            />
+            <Stack.Screen
+                name="Practice Time & Date Preset Screen"
+                component={screens.practice.time.preset}
+                options={{
+                    title: "Trainer"
+                }}
+            />
+            <Stack.Screen
+                name="Practice Time & Date Main Screen"
+                component={screens.practice.time.main}
+                options={{
+                    title: "Trainer"
+                }}
+            />
+            <Stack.Screen
+                name="Test Number Preset Screen"
+                component={screens.test.number.preset}
+                options={{
+                    title: "Trainer"
+                }}
+            />
+            <Stack.Screen
+                name="Test Number Main Screen"
+                component={screens.test.number.main}
+                options={{
+                    title: "Trainer"
+                }}
+            />
+            <Stack.Screen
+                name="Test Time & Date Preset Screen"
+                component={screens.test.time.preset}
+                options={{
+                    title: "Trainer"
+                }}
+            />
+            <Stack.Screen
+                name="Test Time & Date Main Screen"
+                component={screens.test.time.main}
                 options={{
                     title: "Trainer"
                 }}
@@ -53,13 +96,11 @@ const LearnHomeScreen = ({ navigation }) => {
                     marginBottom: 20
                 }}>
                 <IconButton
-                    link="PracticePresetScreen"
                     icon="assessment"
                     form="mode"
                     navigation={navigation}
                     text="Practice" />
                 <IconButton
-                    link="TestPresetScreen"
                     icon="assignment"
                     form="mode"
                     navigation={navigation}
@@ -77,13 +118,11 @@ const LearnHomeScreen = ({ navigation }) => {
                     width: "100%"
                 }}>
                 <IconButton
-                    link="PracticePresetScreen"
                     icon="calculate"
                     form="type"
                     navigation={navigation}
                     text="Number" />
                 <IconButton
-                    link="TestPresetScreen"
                     icon="event"
                     form="type"
                     navigation={navigation}
@@ -96,40 +135,87 @@ const LearnHomeScreen = ({ navigation }) => {
                     fontSize: 48
                 }}>
                 <Button
-                    title="  Next  " />
+                    title="  Next  "
+                    onPress={() => {
+                        const { mode, type } = store.getState()
+                        navigation.push(`${mode} ${type} Preset Screen`)
+                    }} />
             </View>
         </View>
     )
 }
 
-const PracticePresetScreen = ({ navigation }) => {
-    return (
-        <View
-            style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-            }}>
-            <Text style={{
-                fontSize: 20
-            }}>Practice Preset Screen</Text>
-        </View>
-    )
-}
-
-const TestPresetScreen = ({ navigation }) => {
-    return (
-        <View
-            style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-            }}>
-            <Text style={{
-                fontSize: 20
-            }}>Test Preset Screen</Text>
-        </View>
-    )
+const screens = {
+    practice: {
+        number: {
+            preset: ({ navigation }) => (
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}>
+                    <Text style={{
+                        fontSize: 20
+                    }}>Practice Number Preset Screen</Text>
+                </View>
+            ),
+            main: () => ({})
+        },
+        time: {
+            preset: ({ navigation }) => {
+                return (
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}>
+                        <Text style={{
+                            fontSize: 20
+                        }}>Practice Time & Date Preset Screen</Text>
+                    </View>
+                )
+            },
+            main: () => ({})
+        }
+    },
+    test: {
+        number: {
+            preset: ({ navigation }) => {
+                return (
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}>
+                        <Text style={{
+                            fontSize: 20
+                        }}>Test Number Preset Screen</Text>
+                    </View>
+                )
+            },
+            main: () => ({})
+        },
+        time: {
+            preset: ({ navigation }) => {
+                return (
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}>
+                        <Text style={{
+                            fontSize: 20
+                        }}>Test Time & Date Preset Screen</Text>
+                    </View>
+                )
+            },
+            main: () => ({})
+        }
+    }
 }
 
 export { LearnScreen }
