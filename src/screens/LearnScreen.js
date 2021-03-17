@@ -184,97 +184,55 @@ class TimePreset extends React.Component {
                     flexDirection: "column",
                     alignItems: "flex-start",
                 }}>
-                    <View style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                    }}>
-                        <CheckBox
-                            value={this.state.month}
-                            onValueChange={(value) => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_MONTH"
-                                })
-                            }} />
-                        <Text
-                            onPress={() => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_MONTH"
-                                })
-                            }}>Month</Text>
-                    </View>
-                    <View style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                    }}>
-                        <CheckBox
-                            value={this.state.date}
-                            onValueChange={(value) => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_DATE"
-                                })
-                            }}></CheckBox>
-                        <Text
-                            onPress={() => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_DATE"
-                                })
-                            }}>Date</Text>
-                    </View>
-                    <View style={{
-                        flexDirection: "row",
-                        alignItems: "center"
-                    }}>
-                        <CheckBox
-                            value={this.state.date_month}
-                            onValueChange={(value) => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_DATEMONTH"
-                                })
-                            }}></CheckBox>
-                        <Text
-                            onPress={() => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_DATEMONTH"
-                                })
-                            }}>Date & Month</Text>
-                    </View>
-                    <View style={{
-                        flexDirection: "row",
-                        alignItems: "center"
-                    }}>
-                        <CheckBox
-                            value={this.state.day}
-                            onValueChange={(value) => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_DAY"
-                                })
-                            }}></CheckBox>
-                        <Text
-                            onPress={() => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_DAY"
-                                })
-                            }}>Day</Text>
-                    </View>
-                    <View style={{
-                        flexDirection: "row",
-                        alignItems: "center"
-                    }}>
-                        <CheckBox
-                            value={this.state.time}
-                            onValueChange={(value) => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_TIME"
-                                })
-                            }}></CheckBox>
-                        <Text
-                            onPress={() => {
-                                store.dispatch({
-                                    type: "CHANGE_PRESET_TIME"
-                                })
-                            }}>Time</Text>
-                    </View>
+                    <MyCheckBox
+                        dispatch="CHANGE_PRESET_MONTH"
+                        checked={store.getState().preset.time.month}
+                        text="Month" />
+                    <MyCheckBox
+                        dispatch="CHANGE_PRESET_DATE"
+                        checked={store.getState().preset.time.date}
+                        text="Date" />
+                    <MyCheckBox
+                        dispatch="CHANGE_PRESET_DATEMONTH"
+                        checked={store.getState().preset.time.date_month}
+                        text="Date & Month" />
+                    <MyCheckBox
+                        dispatch="CHANGE_PRESET_DAY"
+                        checked={store.getState().preset.time.day}
+                        text="Day" />
+                    <MyCheckBox
+                        dispatch="CHANGE_PRESET_TIME"
+                        checked={store.getState().preset.time.time}
+                        text="Time" />
                 </View>
+            </View>
+        )
+    }
+}
+
+class MyCheckBox extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <View style={{
+                flexDirection: "row",
+                alignItems: "center",
+            }}>
+                <CheckBox
+                    value={this.props.checked}
+                    onValueChange={() => {
+                        store.dispatch({
+                            type: this.props.dispatch
+                        })
+                    }} />
+                <Text
+                    onPress={() => {
+                        store.dispatch({
+                            type: this.props.dispatch
+                        })
+                    }}>{this.props.text}</Text>
             </View>
         )
     }
