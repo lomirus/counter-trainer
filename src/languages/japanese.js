@@ -36,7 +36,7 @@ function numberToKanji(number/*: number*/)/*: string*/ {
     UnshiftDirect__(13, '兆'); return text;
     function UnshiftDirect__(pos/*: number*/, kanji/*: string*/) {
         if (arabicNumber.length >= pos && arabicNumber[arabicNumber.length - pos] !== '0') {
-            text = arabicNumber(arabicNumber[arabicNumber.length - pos]) + kanji + text
+            text = digitsToKanji(arabicNumber[arabicNumber.length - pos]) + kanji + text
         }
     }
     function UnshiftCheckOne(pos/*: number*/, kanji/*: string*/) {

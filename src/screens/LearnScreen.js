@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, TextInput, Button, Pressable } from 'react-native';
+import { View, Text, TextInput, Button, Pressable, Alert } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
 import { LearnHomeScreen } from './LearnHomeScreen'
 import { store } from '../store'
+import * as util from '../util'
+import lang from '../languages/index'
 
 const Stack = createStackNavigator()
 
@@ -196,6 +198,26 @@ class TimePreset extends React.Component {
 class PracticeTrainer extends React.Component {
     constructor(props) {
         super(props)
+        this.history = [util.random(0, 100)]
+        this.state = {}
+        this.state.position = 0
+        this.state.presentNumber = this.history[this.state.position]
+    }
+    WordBack() {
+        this.setState({
+            position: this.state.position - 1,
+            presentNumber: this.history[this.state.position - 1]
+        })
+    }
+    WordForward() {
+        if (this.state.position + 1 === this.history.length) {
+            const newNumber = Math.round(util.random(0, 100))
+            this.history.push(newNumber)
+        }
+        this.setState({
+            position: this.state.position + 1,
+            presentNumber: this.history[this.state.position + 1]
+        })
     }
     render() {
         return (
@@ -206,14 +228,14 @@ class PracticeTrainer extends React.Component {
             }}>
                 <Text style={{
                     fontSize: 36
-                }}>1984</Text>
+                }}>{Math.round(this.state.presentNumber)}</Text>
                 <Text style={{
                     marginTop: 24,
                     fontSize: 24,
                     marginLeft: "10%",
                     marginRight: "10%",
                     textAlign: "center"
-                }}>いちせんきゅうひゃくはちじゅうよん</Text>
+                }}>{lang.toJP(Math.round(this.state.presentNumber))}</Text>
                 <View
                     style={{
                         flexDirection: "row",
@@ -234,15 +256,61 @@ class PracticeTrainer extends React.Component {
                             elevation: 8,
                             width: 72
                         }}
-                        onPress={
-                            () => { }
-                        }>
+                        onPress={() => { }}>
                         <MaterialIcons
                             name="pause"
                             size={48}
                             color="white" />
                     </Pressable>
                     <SpeakButton />
+                </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        width: "100%",
+                        marginTop: 36
+                    }}>
+                    <Pressable
+                        android_ripple={{
+                            color: 'rgba(0,0,0,0.1)',
+                            borderless: true,
+                            radius: 36,
+                        }}
+                        style={{
+                            borderRadius: 36,
+                            padding: 12,
+                            backgroundColor: "#007AFF",
+                            elevation: 8,
+                            width: 72,
+                            opacity: this.state.position === 0 ? 0 : 1
+                        }}
+                        disabled={this.state.position === 0 ? true : false}
+                        onPress={() => this.WordBack()}>
+                        <MaterialIcons
+                            name="arrow-back"
+                            size={48}
+                            color="white" />
+                    </Pressable>
+                    <Pressable
+                        android_ripple={{
+                            color: 'rgba(0,0,0,0.1)',
+                            borderless: true,
+                            radius: 36,
+                        }}
+                        style={{
+                            borderRadius: 36,
+                            padding: 12,
+                            backgroundColor: "#007AFF",
+                            elevation: 8,
+                            width: 72
+                        }}
+                        onPress={() => this.WordForward()}>
+                        <MaterialIcons
+                            name="arrow-forward"
+                            size={48}
+                            color="white" />
+                    </Pressable>
                 </View>
             </View>
         )
@@ -277,6 +345,7 @@ class SpeakButton extends React.Component {
     }
     componentWillUnmount() {
         clearInterval(this.speakInterval)
+        this.setState = () => { }
     }
     render() {
         return (
