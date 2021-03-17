@@ -160,6 +160,125 @@ class NumberPreset extends React.Component {
     }
 }
 
+class TimePreset extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            month: false,
+            date: false,
+            date_month: false,
+            day: false,
+            time: true,
+        }
+    }
+    render() {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                <View style={{
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                }}>
+                    <View style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
+                        <CheckBox
+                            value={this.state.month}
+                            onValueChange={(value) => {
+                                this.setState({
+                                    month: value
+                                })
+                            }} />
+                        <Text
+                            onPress={() => {
+                                this.setState({
+                                    month: !this.state.month
+                                })
+                            }}>Month</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
+                        <CheckBox
+                            value={this.state.date}
+                            onValueChange={(value) => {
+                                this.setState({
+                                    date: value
+                                })
+                            }}></CheckBox>
+                        <Text
+                            onPress={() => {
+                                this.setState({
+                                    date: !this.state.date
+                                })
+                            }}>Date</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: "row",
+                        alignItems: "center"
+                    }}>
+                        <CheckBox
+                            value={this.state.date_month}
+                            onValueChange={(value) => {
+                                this.setState({
+                                    date_month: value
+                                })
+                            }}></CheckBox>
+                        <Text
+                            onPress={() => {
+                                this.setState({
+                                    date_month: !this.state.date_month
+                                })
+                            }}>Date & Month</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: "row",
+                        alignItems: "center"
+                    }}>
+                        <CheckBox
+                            value={this.state.day}
+                            onValueChange={(value) => {
+                                this.setState({
+                                    day: value
+                                })
+                            }}></CheckBox>
+                        <Text
+                            onPress={() => {
+                                this.setState({
+                                    day: !this.state.day
+                                })
+                            }}>Day</Text>
+                    </View>
+                    <View style={{
+                        flexDirection: "row",
+                        alignItems: "center"
+                    }}>
+                        <CheckBox
+                            value={this.state.time}
+                            onValueChange={(value) => {
+                                this.setState({
+                                    time: value
+                                })
+                            }}></CheckBox>
+                        <Text
+                            onPress={() => {
+                                this.setState({
+                                    time: !this.state.time
+                                })
+                            }}>Time</Text>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+}
+
 const screens = {
     practice: {
         number: {
@@ -167,20 +286,7 @@ const screens = {
             main: () => ({})
         },
         time: {
-            preset: ({ navigation }) => {
-                return (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}>
-                        <Text style={{
-                            fontSize: 20
-                        }}>Practice Time & Date Preset Screen</Text>
-                    </View>
-                )
-            },
+            preset: () => <TimePreset />,
             main: () => ({})
         }
     },
@@ -190,20 +296,7 @@ const screens = {
             main: () => ({})
         },
         time: {
-            preset: ({ navigation }) => {
-                return (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}>
-                        <Text style={{
-                            fontSize: 20
-                        }}>Test Time & Date Preset Screen</Text>
-                    </View>
-                )
-            },
+            preset: () => <TimePreset />,
             main: () => ({})
         }
     }
