@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
@@ -19,57 +19,29 @@ const LearnScreen = () => {
                 }}
             />
             <Stack.Screen
-                name="Practice Number Preset Screen"
-                component={screens.practice.number.preset}
+                name="Number Preset Screen"
+                component={screens.preset.number}
                 options={{
                     title: "Preset"
                 }}
             />
             <Stack.Screen
-                name="Practice Number Main Screen"
-                component={screens.practice.number.main}
+                name="Time & Date Preset Screen"
+                component={screens.preset.time}
+                options={{
+                    title: "Preset"
+                }}
+            />
+            <Stack.Screen
+                name="Practice Trainer Screen"
+                component={screens.trainer.practice}
                 options={{
                     title: "Trainer"
                 }}
             />
             <Stack.Screen
-                name="Practice Time & Date Preset Screen"
-                component={screens.practice.time.preset}
-                options={{
-                    title: "Preset"
-                }}
-            />
-            <Stack.Screen
-                name="Practice Time & Date Main Screen"
-                component={screens.practice.time.main}
-                options={{
-                    title: "Trainer"
-                }}
-            />
-            <Stack.Screen
-                name="Test Number Preset Screen"
-                component={screens.test.number.preset}
-                options={{
-                    title: "Preset"
-                }}
-            />
-            <Stack.Screen
-                name="Test Number Main Screen"
-                component={screens.test.number.main}
-                options={{
-                    title: "Trainer"
-                }}
-            />
-            <Stack.Screen
-                name="Test Time & Date Preset Screen"
-                component={screens.test.time.preset}
-                options={{
-                    title: "Preset"
-                }}
-            />
-            <Stack.Screen
-                name="Test Time & Date Main Screen"
-                component={screens.test.time.main}
+                name="Test Trainer Screen"
+                component={screens.trainer.test}
                 options={{
                     title: "Trainer"
                 }}
@@ -83,14 +55,12 @@ class NumberPreset extends React.Component {
         super(props)
         this.state = store.getState().preset.number
         this.unsubscribe = store.subscribe(() => {
-            console.log(this.state)
             this.setState(store.getState().preset.number)
-            console.log(this.state)
         })
     }
     componentWillUnmount() {
         this.unsubscribe()
-        this.setState = () => {}
+        this.setState = () => { }
     }
     render() {
         return (
@@ -147,7 +117,13 @@ class NumberPreset extends React.Component {
                     marginTop: 36
                 }}>
                     <Button
-                        title="Next" />
+                        title="Next"
+                        onPress={() => {
+                            this.props.navigation.push(
+                                `${this.props.route.params.mode} Trainer Screen`,
+                                { text: `${this.props.route.params.mode} Number Trainer Screen` }
+                            )
+                        }} />
                 </View>
             </View>
         )
@@ -164,7 +140,7 @@ class TimePreset extends React.Component {
     }
     componentWillUnmount() {
         this.unsubscribe()
-        this.setState = () => {}
+        this.setState = () => { }
     }
     render() {
         return (
@@ -203,33 +179,65 @@ class TimePreset extends React.Component {
                     marginTop: 36
                 }}>
                     <Button
-                        title="Next" />
+                        title="Next"
+                        onPress={() => {
+                            this.props.navigation.push(
+                                `${this.props.route.params.mode} Trainer Screen`,
+                                { text: `${this.props.route.params.mode} Time & Date Trainer Screen` }
+                            )
+                        }} />
                 </View>
             </View>
         )
     }
 }
 
+class PracticeTrainer extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <View style={{
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
+            }}>
+                <Text style={{
+                    fontSize: 24
+                }}>{this.props.route.params.text}</Text>
+            </View>
+        )
+    }
+}
+
+class TestTrainer extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <View style={{
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
+            }}>
+                <Text style={{
+                    fontSize: 24
+                }}>{this.props.route.params.text}</Text>
+            </View>
+        )
+    }
+}
+
 const screens = {
-    practice: {
-        number: {
-            preset: () => <NumberPreset />,
-            main: () => ({})
-        },
-        time: {
-            preset: () => <TimePreset />,
-            main: () => ({})
-        }
+    preset: {
+        number: ({ route, navigation }) => <NumberPreset route={route} navigation={navigation} />,
+        time: ({ route, navigation }) => <TimePreset route={route} navigation={navigation} />
     },
-    test: {
-        number: {
-            preset: () => <NumberPreset />,
-            main: () => ({})
-        },
-        time: {
-            preset: () => <TimePreset />,
-            main: () => ({})
-        }
+    trainer: {
+        practice: ({ route }) => <PracticeTrainer route={route} />,
+        test: ({ route }) => <TestTrainer route={route} />
     }
 }
 

@@ -65,7 +65,7 @@ const LearnHomeScreen = ({ navigation }) => {
                     title="  Next  "
                     onPress={() => {
                         const { mode, type } = store.getState()
-                        navigation.push(`${mode} ${type} Preset Screen`)
+                        navigation.push(`${type} Preset Screen`, { mode })
                     }} />
             </View>
         </View>
