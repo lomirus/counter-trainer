@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
@@ -90,6 +90,7 @@ class NumberPreset extends React.Component {
     }
     componentWillUnmount() {
         this.unsubscribe()
+        this.setState = () => {}
     }
     render() {
         return (
@@ -142,6 +143,12 @@ class NumberPreset extends React.Component {
                         checked={this.state.decimal}
                         text="Decimal" />
                 </View>
+                <View style={{
+                    marginTop: 36
+                }}>
+                    <Button
+                        title="Next" />
+                </View>
             </View>
         )
     }
@@ -157,6 +164,7 @@ class TimePreset extends React.Component {
     }
     componentWillUnmount() {
         this.unsubscribe()
+        this.setState = () => {}
     }
     render() {
         return (
@@ -190,6 +198,12 @@ class TimePreset extends React.Component {
                         dispatch="CHANGE_PRESET_TIME"
                         checked={this.state.time}
                         text="Time" />
+                </View>
+                <View style={{
+                    marginTop: 36
+                }}>
+                    <Button
+                        title="Next" />
                 </View>
             </View>
         )
