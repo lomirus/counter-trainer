@@ -115,7 +115,10 @@ class NumberPreset extends React.Component {
                         keyboardType="numeric"
                         underlineColorAndroid="gray" />
                 </View>
-                <View>
+                <View
+                    style={{
+                        marginTop: 36
+                    }}>
                     <Text
                         style={{
                             fontSize: 20
@@ -123,7 +126,7 @@ class NumberPreset extends React.Component {
                 </View>
                 <View style={{
                     flexDirection: "row",
-                    alignItems: "center"
+                    alignItems: "center",
                 }}>
                     <CheckBox
                         value={this.state.integer}
