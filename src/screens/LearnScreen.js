@@ -4,6 +4,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { LearnHomeScreen } from './LearnHomeScreen'
+import { store } from '../store'
 
 const Stack = createStackNavigator()
 
@@ -163,13 +164,13 @@ class NumberPreset extends React.Component {
 class TimePreset extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            month: false,
-            date: false,
-            date_month: false,
-            day: false,
-            time: true,
-        }
+        this.state = store.getState().preset.time
+        this.unsubscribe = store.subscribe(() => {
+            this.setState(store.getState().preset.time)
+        })
+    }
+    componentWillUnmount() {
+        this.unsubscribe()
     }
     render() {
         return (
@@ -190,14 +191,14 @@ class TimePreset extends React.Component {
                         <CheckBox
                             value={this.state.month}
                             onValueChange={(value) => {
-                                this.setState({
-                                    month: value
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_MONTH"
                                 })
                             }} />
                         <Text
                             onPress={() => {
-                                this.setState({
-                                    month: !this.state.month
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_MONTH"
                                 })
                             }}>Month</Text>
                     </View>
@@ -208,14 +209,14 @@ class TimePreset extends React.Component {
                         <CheckBox
                             value={this.state.date}
                             onValueChange={(value) => {
-                                this.setState({
-                                    date: value
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_DATE"
                                 })
                             }}></CheckBox>
                         <Text
                             onPress={() => {
-                                this.setState({
-                                    date: !this.state.date
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_DATE"
                                 })
                             }}>Date</Text>
                     </View>
@@ -226,14 +227,14 @@ class TimePreset extends React.Component {
                         <CheckBox
                             value={this.state.date_month}
                             onValueChange={(value) => {
-                                this.setState({
-                                    date_month: value
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_DATEMONTH"
                                 })
                             }}></CheckBox>
                         <Text
                             onPress={() => {
-                                this.setState({
-                                    date_month: !this.state.date_month
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_DATEMONTH"
                                 })
                             }}>Date & Month</Text>
                     </View>
@@ -244,14 +245,14 @@ class TimePreset extends React.Component {
                         <CheckBox
                             value={this.state.day}
                             onValueChange={(value) => {
-                                this.setState({
-                                    day: value
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_DAY"
                                 })
                             }}></CheckBox>
                         <Text
                             onPress={() => {
-                                this.setState({
-                                    day: !this.state.day
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_DAY"
                                 })
                             }}>Day</Text>
                     </View>
@@ -262,14 +263,14 @@ class TimePreset extends React.Component {
                         <CheckBox
                             value={this.state.time}
                             onValueChange={(value) => {
-                                this.setState({
-                                    time: value
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_TIME"
                                 })
                             }}></CheckBox>
                         <Text
                             onPress={() => {
-                                this.setState({
-                                    time: !this.state.time
+                                store.dispatch({
+                                    type: "CHANGE_PRESET_TIME"
                                 })
                             }}>Time</Text>
                     </View>
