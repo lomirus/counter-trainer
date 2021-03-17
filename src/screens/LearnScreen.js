@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput, Alert, ToastAndroid } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { LearnHomeScreen } from './LearnHomeScreen'
@@ -76,21 +77,90 @@ const LearnScreen = () => {
     )
 }
 
+class NumberPreset extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            integer: true,
+            decimal: false
+        }
+    }
+    render() {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                <View>
+                    <Text
+                        style={{
+                            fontSize: 20
+                        }}>Number Range</Text>
+                </View>
+                <View style={{
+                    flexDirection: "row",
+                    alignItems: "center"
+                }}>
+                    <TextInput
+                        placeholder="Min"
+                        keyboardType="numeric"
+                        underlineColorAndroid="gray" />
+                    <Text style={{
+                        height: 18
+                    }}> ~ </Text>
+                    <TextInput
+                        placeholder="Max"
+                        keyboardType="numeric"
+                        underlineColorAndroid="gray" />
+                </View>
+                <View>
+                    <Text
+                        style={{
+                            fontSize: 20
+                        }}>Number Coverage</Text>
+                </View>
+                <View style={{
+                    flexDirection: "row",
+                    alignItems: "center"
+                }}>
+                    <CheckBox
+                        value={this.state.integer}
+                        onValueChange={(value) => {
+                            this.setState({
+                                integer: value
+                            })
+                        }} />
+                    <Text
+                        onPress={() => {
+                            this.setState({
+                                integer: !this.state.integer
+                            })
+                        }}>Integar</Text>
+                    <CheckBox
+                        value={this.state.decimal}
+                        onValueChange={(value) => {
+                            this.setState({
+                                decimal: value
+                            })
+                        }}></CheckBox>
+                    <Text
+                        onPress={() => {
+                            this.setState({
+                                decimal: !this.state.decimal
+                            })
+                        }}>Decimal</Text>
+                </View>
+            </View>
+        )
+    }
+}
+
 const screens = {
     practice: {
         number: {
-            preset: ({ navigation }) => (
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}>
-                    <Text style={{
-                        fontSize: 20
-                    }}>Practice Number Preset Screen</Text>
-                </View>
-            ),
+            preset: () => <NumberPreset />,
             main: () => ({})
         },
         time: {
@@ -113,20 +183,7 @@ const screens = {
     },
     test: {
         number: {
-            preset: ({ navigation }) => {
-                return (
-                    <View
-                        style={{
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}>
-                        <Text style={{
-                            fontSize: 20
-                        }}>Test Number Preset Screen</Text>
-                    </View>
-                )
-            },
+            preset: () => <NumberPreset />,
             main: () => ({})
         },
         time: {
