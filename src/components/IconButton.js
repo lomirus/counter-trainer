@@ -4,7 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { store } from '../store'
 
 export class IconButton extends React.Component {
-    constructor(props, context) {
+    constructor(props) {
         super(props)
         this.state = {
             chosen: props.text === store.getState()[props.form]

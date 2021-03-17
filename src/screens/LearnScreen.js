@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Pressable } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
 import { LearnHomeScreen } from './LearnHomeScreen'
@@ -204,8 +205,65 @@ class PracticeTrainer extends React.Component {
                 flex: 1,
             }}>
                 <Text style={{
-                    fontSize: 24
-                }}>{this.props.route.params.text}</Text>
+                    fontSize: 36
+                }}>1984</Text>
+                <Text style={{
+                    marginTop: 24,
+                    fontSize: 24,
+                    marginLeft: "10%",
+                    marginRight: "10%",
+                    textAlign: "center"
+                }}>いちせんきゅうひゃくはちじゅうよん</Text>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        width: "100%",
+                        marginTop: 36
+                    }}>
+                    <Pressable
+                        android_ripple={{
+                            color: 'rgba(0,0,0,0.1)',
+                            borderless: true,
+                            radius: 36,
+                        }}
+                        style={{
+                            borderRadius: 36,
+                            padding: 12,
+                            backgroundColor: "#007AFF",
+                            elevation: 8,
+                            width: 72
+                        }}
+                        onPress={
+                            () => { }
+                        }>
+                        <MaterialIcons
+                            name="pause"
+                            size={48}
+                            color="white" />
+                    </Pressable>
+                    <Pressable
+                        android_ripple={{
+                            color: 'rgba(0,0,0,0.1)',
+                            borderless: true,
+                            radius: 36,
+                        }}
+                        style={{
+                            borderRadius: 36,
+                            padding: 12,
+                            backgroundColor: "#007AFF",
+                            elevation: 8,
+                            width: 72
+                        }}
+                        onPress={
+                            () => { }
+                        }>
+                        <MaterialIcons
+                            name="volume-up"
+                            size={48}
+                            color="white" />
+                    </Pressable>
+                </View>
             </View>
         )
     }
