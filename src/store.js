@@ -28,7 +28,7 @@ const reducer = (state = defaultState, action) => ({
             min: action.type === "CHANGE_PRESET_MIN_NUMBER" ?
                 action.payload : state.preset.number.min,
             max: action.type === "CHANGE_PRESET_MAX_NUMBER" ?
-                action.payload : state.preset.number.min,
+                action.payload : state.preset.number.max,
             integer: action.type === "CHANGE_PRESET_INTEGER" ?
                 !state.preset.number.integer : state.preset.number.integer,
             decimal: action.type === "CHANGE_PRESET_DECIMAL" ?

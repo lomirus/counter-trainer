@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, TextInput, Alert, ToastAndroid } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import { View, Text, TextInput } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 
+import { PresetCheckBox } from '../components/PresetCheckBox'
 import { LearnHomeScreen } from './LearnHomeScreen'
 import { store } from '../store'
 
@@ -81,10 +81,15 @@ const LearnScreen = () => {
 class NumberPreset extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            integer: true,
-            decimal: false
-        }
+        this.state = store.getState().preset.number
+        this.unsubscribe = store.subscribe(() => {
+            console.log(this.state)
+            this.setState(store.getState().preset.number)
+            console.log(this.state)
+        })
+    }
+    componentWillUnmount() {
+        this.unsubscribe()
     }
     render() {
         return (
@@ -126,35 +131,16 @@ class NumberPreset extends React.Component {
                         }}>Number Coverage</Text>
                 </View>
                 <View style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: "column",
                 }}>
-                    <CheckBox
-                        value={this.state.integer}
-                        onValueChange={(value) => {
-                            this.setState({
-                                integer: value
-                            })
-                        }} />
-                    <Text
-                        onPress={() => {
-                            this.setState({
-                                integer: !this.state.integer
-                            })
-                        }}>Integar</Text>
-                    <CheckBox
-                        value={this.state.decimal}
-                        onValueChange={(value) => {
-                            this.setState({
-                                decimal: value
-                            })
-                        }}></CheckBox>
-                    <Text
-                        onPress={() => {
-                            this.setState({
-                                decimal: !this.state.decimal
-                            })
-                        }}>Decimal</Text>
+                    <PresetCheckBox
+                        dispatch="CHANGE_PRESET_INTEGER"
+                        checked={this.state.integer}
+                        text="Integar" />
+                    <PresetCheckBox
+                        dispatch="CHANGE_PRESET_DECIMAL"
+                        checked={this.state.decimal}
+                        text="Decimal" />
                 </View>
             </View>
         )
@@ -184,55 +170,27 @@ class TimePreset extends React.Component {
                     flexDirection: "column",
                     alignItems: "flex-start",
                 }}>
-                    <MyCheckBox
+                    <PresetCheckBox
                         dispatch="CHANGE_PRESET_MONTH"
-                        checked={store.getState().preset.time.month}
+                        checked={this.state.month}
                         text="Month" />
-                    <MyCheckBox
+                    <PresetCheckBox
                         dispatch="CHANGE_PRESET_DATE"
-                        checked={store.getState().preset.time.date}
+                        checked={this.state.date}
                         text="Date" />
-                    <MyCheckBox
+                    <PresetCheckBox
                         dispatch="CHANGE_PRESET_DATEMONTH"
-                        checked={store.getState().preset.time.date_month}
+                        checked={this.state.date_month}
                         text="Date & Month" />
-                    <MyCheckBox
+                    <PresetCheckBox
                         dispatch="CHANGE_PRESET_DAY"
-                        checked={store.getState().preset.time.day}
+                        checked={this.state.day}
                         text="Day" />
-                    <MyCheckBox
+                    <PresetCheckBox
                         dispatch="CHANGE_PRESET_TIME"
-                        checked={store.getState().preset.time.time}
+                        checked={this.state.time}
                         text="Time" />
                 </View>
-            </View>
-        )
-    }
-}
-
-class MyCheckBox extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return (
-            <View style={{
-                flexDirection: "row",
-                alignItems: "center",
-            }}>
-                <CheckBox
-                    value={this.props.checked}
-                    onValueChange={() => {
-                        store.dispatch({
-                            type: this.props.dispatch
-                        })
-                    }} />
-                <Text
-                    onPress={() => {
-                        store.dispatch({
-                            type: this.props.dispatch
-                        })
-                    }}>{this.props.text}</Text>
             </View>
         )
     }
