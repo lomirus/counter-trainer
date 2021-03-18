@@ -12,6 +12,8 @@ target 'CounterTrainer' do
     :hermes_enabled => false
   )
 
+  pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
+
   target 'CounterTrainerTests' do
     inherit! :complete
     # Pods for testing

@@ -5,6 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
 import { LearnHomeScreen } from './LearnHomeScreen'
+import SpeakButton from '../components/SpeakButton'
 import { store } from '../store'
 import * as util from '../util'
 import lang from '../languages/index'
@@ -262,7 +263,9 @@ class PracticeTrainer extends React.Component {
                             size={48}
                             color="white" />
                     </Pressable>
-                    <SpeakButton />
+                    <SpeakButton
+                        text={lang.toJP(Math.round(this.state.presentNumber))}
+                        lang="ja-JP" />
                 </View>
                 <View
                     style={{
@@ -317,62 +320,7 @@ class PracticeTrainer extends React.Component {
     }
 }
 
-class SpeakButton extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            icon: "volume-up"
-        }
-    }
-    speak() {
-        let count = 0
-        this.speakInterval = setInterval(() => {
-            console.log(count)
-            if (count === 12) {
-                clearInterval(this.speakInterval)
-                this.setState({ icon: "volume-up" })
-                return
-            }
-            if (count % 3 === 0) {
-                this.setState({ icon: "volume-mute" })
-            } else if (count % 3 === 1) {
-                this.setState({ icon: "volume-down" })
-            } else if (count % 3 === 2) {
-                this.setState({ icon: "volume-up" })
-            }
-            count += 1;
-        }, 300)
-    }
-    componentWillUnmount() {
-        clearInterval(this.speakInterval)
-        this.setState = () => { }
-    }
-    render() {
-        return (
-            <Pressable
-                android_ripple={{
-                    color: 'rgba(0,0,0,0.1)',
-                    borderless: true,
-                    radius: 36,
-                }}
-                style={{
-                    borderRadius: 36,
-                    padding: 12,
-                    backgroundColor: "#007AFF",
-                    elevation: 8,
-                    width: 72
-                }}
-                onPress={
-                    () => this.speak()
-                }>
-                <MaterialIcons
-                    name={this.state.icon}
-                    size={48}
-                    color="white" />
-            </Pressable>
-        )
-    }
-}
+
 
 class TestTrainer extends React.Component {
     constructor(props) {
