@@ -14,6 +14,7 @@ Suppose you have installed `Node.js` and `Git`:
 git clone https://github.com/lomirus/counter-trainer.git
 cd counter-trainer
 npm install
+react-native link react-native-tts
 ```
 
 ## Run & Test
