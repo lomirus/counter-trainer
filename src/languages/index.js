@@ -1,3 +1,5 @@
-import toJP from './japanese'
+import jp from './japanese'
 
-export default { toJP }
+export default { 
+    jp
+ }

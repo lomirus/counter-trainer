@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Button, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
 import IconButton from '../components/IconButton'
@@ -190,7 +190,7 @@ export class PracticeTrainer extends React.Component {
                     marginLeft: "10%",
                     marginRight: "10%",
                     textAlign: "center"
-                }}>{lang.toJP(Math.round(this.state.presentNumber))}</Text>
+                }}>{lang.jp.convert(Math.round(this.state.presentNumber))}</Text>
                 <View
                     style={{
                         flexDirection: "row",
@@ -202,7 +202,7 @@ export class PracticeTrainer extends React.Component {
                         onPress={() => { }}
                         icon="pause" />
                     <SpeakButton
-                        text={lang.toJP(Math.round(this.state.presentNumber))}
+                        text={lang.jp.convert(Math.round(this.state.presentNumber))}
                         lang="ja-JP" />
                 </View>
                 <View
