@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
-import { IconButton } from '../components/IconButton'
+import HomeIconButton from '../components/HomeIconButton'
 import { store } from '../store'
 
 const LearnHomeScreen = ({ navigation }) => {
@@ -22,12 +22,12 @@ const LearnHomeScreen = ({ navigation }) => {
                     width: "100%",
                     marginBottom: 20
                 }}>
-                <IconButton
+                <HomeIconButton
                     icon="assessment"
                     form="mode"
                     navigation={navigation}
                     text="Practice" />
-                <IconButton
+                <HomeIconButton
                     icon="assignment"
                     form="mode"
                     navigation={navigation}
@@ -44,12 +44,12 @@ const LearnHomeScreen = ({ navigation }) => {
                     justifyContent: "space-around",
                     width: "100%"
                 }}>
-                <IconButton
+                <HomeIconButton
                     icon="calculate"
                     form="type"
                     navigation={navigation}
                     text="Number" />
-                <IconButton
+                <HomeIconButton
                     icon="event"
                     form="type"
                     navigation={navigation}

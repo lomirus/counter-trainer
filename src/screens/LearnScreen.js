@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, TextInput, Button, Pressable, Alert } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
 import { LearnHomeScreen } from './LearnHomeScreen'
+import IconButton from '../components/IconButton'
 import SpeakButton from '../components/SpeakButton'
 import { store } from '../store'
 import * as util from '../util'
@@ -244,25 +244,9 @@ class PracticeTrainer extends React.Component {
                         width: "100%",
                         marginTop: 36
                     }}>
-                    <Pressable
-                        android_ripple={{
-                            color: 'rgba(0,0,0,0.1)',
-                            borderless: true,
-                            radius: 36,
-                        }}
-                        style={{
-                            borderRadius: 36,
-                            padding: 12,
-                            backgroundColor: "#007AFF",
-                            elevation: 8,
-                            width: 72
-                        }}
-                        onPress={() => { }}>
-                        <MaterialIcons
-                            name="pause"
-                            size={48}
-                            color="white" />
-                    </Pressable>
+                    <IconButton
+                        onPress={() => { }}
+                        icon="pause" />
                     <SpeakButton
                         text={lang.toJP(Math.round(this.state.presentNumber))}
                         lang="ja-JP" />
@@ -274,53 +258,21 @@ class PracticeTrainer extends React.Component {
                         width: "100%",
                         marginTop: 36
                     }}>
-                    <Pressable
-                        android_ripple={{
-                            color: 'rgba(0,0,0,0.1)',
-                            borderless: true,
-                            radius: 36,
-                        }}
+                    <IconButton
                         style={{
-                            borderRadius: 36,
-                            padding: 12,
-                            backgroundColor: "#007AFF",
-                            elevation: 8,
-                            width: 72,
                             opacity: this.state.position === 0 ? 0 : 1
                         }}
                         disabled={this.state.position === 0 ? true : false}
-                        onPress={() => this.WordBack()}>
-                        <MaterialIcons
-                            name="arrow-back"
-                            size={48}
-                            color="white" />
-                    </Pressable>
-                    <Pressable
-                        android_ripple={{
-                            color: 'rgba(0,0,0,0.1)',
-                            borderless: true,
-                            radius: 36,
-                        }}
-                        style={{
-                            borderRadius: 36,
-                            padding: 12,
-                            backgroundColor: "#007AFF",
-                            elevation: 8,
-                            width: 72
-                        }}
-                        onPress={() => this.WordForward()}>
-                        <MaterialIcons
-                            name="arrow-forward"
-                            size={48}
-                            color="white" />
-                    </Pressable>
+                        onPress={() => this.WordBack()}
+                        icon="arrow-back" />
+                    <IconButton
+                        onPress={() => this.WordForward()}
+                        icon="arrow-forward" />
                 </View>
             </View>
         )
     }
 }
-
-
 
 class TestTrainer extends React.Component {
     constructor(props) {
