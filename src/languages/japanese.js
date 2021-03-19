@@ -43,7 +43,7 @@ function randomDate(){
         case 17: return { text: "十七日", speak: "じゅうしちにち" };
         case 18: return { text: "十八日", speak: "じゅうはちにち" };
         case 19: return { text: "十九日", speak: "じゅうくにち" };
-        case 20: return { text: "十日", speak: "はつか" };
+        case 20: return { text: "二十日", speak: "はつか" };
         case 21: return { text: "二十一日", speak: "にじゅういちにち" };
         case 22: return { text: "二十二日", speak: "にじゅうににち" };
         case 23: return { text: "二十三日", speak: "にじゅうさんにち" };
