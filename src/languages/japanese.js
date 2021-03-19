@@ -119,9 +119,12 @@ function randomMinute() {
         case 9: text = '９分'; speak = 'きゅうふん'; break;
         default: throw new Error("Unexpected 'r % 10': " + r % 10)
     }
+    if (r >= 10 && r % 10 !== 0) {
+        speak = 'じゅう' + speak;
+    }
     switch(Math.floor(r / 10)) {
         case 0: break;
-        case 1: text = '１' + text; speak = r === 10 ? '' : 'いち' + speak; break;
+        case 1: text = '１' + text; break;
         case 2: text = '２' + text; speak = 'に' + speak; break;
         case 3: text = '３' + text; speak = 'さん' + speak; break;
         case 4: text = '４' + text; speak = 'よん' + speak; break;
@@ -136,7 +139,7 @@ function randomTime() {
     const minute = randomMinute()
     return {
         text: `${hour.text}${minute.text}`,
-        speak: `${hour.speak}${minute.speak}`
+        speak: `${hour.speak}　${minute.speak}`
     }
 }
 
