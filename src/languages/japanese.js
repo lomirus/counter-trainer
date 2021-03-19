@@ -121,11 +121,11 @@ function randomMinute() {
     }
     switch(Math.floor(r / 10)) {
         case 0: break;
-        case 1: text = '１' + text; speak = r === 10 ? '' : 'いち' + text; break;
-        case 2: text = '２' + text; speak = 'に' + text; break;
-        case 3: text = '３' + text; speak = 'さん' + text; break;
-        case 4: text = '４' + text; speak = 'よん' + text; break;
-        case 5: text = '５' + text; speak = 'ご' + text; break;
+        case 1: text = '１' + text; speak = r === 10 ? '' : 'いち' + speak; break;
+        case 2: text = '２' + text; speak = 'に' + speak; break;
+        case 3: text = '３' + text; speak = 'さん' + speak; break;
+        case 4: text = '４' + text; speak = 'よん' + speak; break;
+        case 5: text = '５' + text; speak = 'ご' + speak; break;
         default: throw new Error("Unexpected 'r % 10': " + r % 10)
     }
     return { text, speak }
