@@ -77,6 +77,10 @@ export class NumberPreset extends React.Component {
                     <Button
                         title="Next"
                         onPress={() => {
+                            if (this.props.route.params.mode === 'Test') {
+                                Alert.alert("Oops", "Test Screen is unavailable now.")
+                                return
+                            }
                             this.props.navigation.push(
                                 `${this.props.route.params.mode} Trainer Screen`,
                                 {
@@ -143,6 +147,10 @@ export class TimePreset extends React.Component {
                     <Button
                         title="Next"
                         onPress={() => {
+                            if (this.props.route.params.mode === 'Test') {
+                                Alert.alert("Oops", "Test Screen is unavailable now.")
+                                return
+                            }
                             this.props.navigation.push(
                                 `${this.props.route.params.mode} Trainer Screen`,
                                 {
