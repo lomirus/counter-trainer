@@ -15,6 +15,7 @@ export class PresetCheckBox extends React.Component {
             }}>
                 <CheckBox
                     value={this.props.checked}
+                    disabled={this.props.disabled}
                     onValueChange={() => {
                         store.dispatch({
                             type: this.props.dispatch

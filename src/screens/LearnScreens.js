@@ -26,7 +26,7 @@ export class NumberPreset extends React.Component {
     }
     nextClick() {
         if (this.props.route.params.mode === 'Test') {
-            Alert.alert("Oops", "Test Screen is unavailable now.")
+            Alert.alert("Oops", "Test Trainer is unavailable now.")
             return
         }
         let min = parseFloat(this.preset.min);
@@ -107,10 +107,12 @@ export class NumberPreset extends React.Component {
                     <PresetCheckBox
                         dispatch="CHANGE_PRESET_INTEGER"
                         checked={this.state.integer}
+                        disabled={true}
                         text="Integar" />
                     <PresetCheckBox
                         dispatch="CHANGE_PRESET_DECIMAL"
                         checked={this.state.decimal}
+                        disabled={true}
                         text="Decimal" />
                 </View>
                 <View style={{
@@ -136,6 +138,20 @@ export class TimePreset extends React.Component {
     componentWillUnmount() {
         this.unsubscribe()
         this.setState = () => { }
+    }
+    nextClick() {
+        if (this.props.route.params.mode === 'Test') {
+            Alert.alert("Oops", "Test Trainer is unavailable now.")
+            return
+        }
+        this.props.navigation.push(
+            `${this.props.route.params.mode} Trainer Screen`,
+            {
+                mode: this.props.route.params.mode,
+                type: "Time & Date",
+                preset: store.getState().preset.time
+            }
+        )
     }
     render() {
         return (
@@ -175,20 +191,7 @@ export class TimePreset extends React.Component {
                 }}>
                     <Button
                         title="Next"
-                        onPress={() => {
-                            if (this.props.route.params.mode === 'Test') {
-                                Alert.alert("Oops", "Test Screen is unavailable now.")
-                                return
-                            }
-                            this.props.navigation.push(
-                                `${this.props.route.params.mode} Trainer Screen`,
-                                {
-                                    mode: this.props.route.params.mode,
-                                    type: "Time & Date",
-                                    preset: store.getState().preset.time
-                                }
-                            )
-                        }} />
+                        onPress={() => this.nextClick()} />
                 </View>
             </View>
         )
@@ -207,8 +210,6 @@ export class PracticeTrainer extends React.Component {
                 let speak = lang.jp.convert(text)
                 return { text, speak }
             })
-            console.log("Number Type")
-            console.log(this.preset)
         } else {
             if (this.preset.date) this.caseGenerators.push(lang.jp.randomDate)
             if (this.preset.date_month) this.caseGenerators.push(lang.jp.randomDateMonth)
