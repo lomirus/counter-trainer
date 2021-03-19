@@ -1,5 +1,7 @@
 function numberToJapanese(number/*: number*/)/*: string*/ {
-    return kanjiToKana(numberToKanji(number))
+    if (number === 0) return "ゼロ";
+    if (number > 0) return kanjiToKana(numberToKanji(number));
+    return "マイナス　" + kanjiToKana(numberToKanji(-number))
 }
 
 function randomMonth(){
