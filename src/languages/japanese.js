@@ -93,8 +93,8 @@ function randomHour(){
         case 5: return { text: "５時", speak: "ごじ"};
         case 6: return { text: "６時", speak: "ろくじ"};
         case 7: return { text: "７時", speak: "しちじ"};
-        case 8: return { text: "８時", speak: "くじ"};
-        case 9: return { text: "９時", speak: "きゅうじ"};
+        case 8: return { text: "８時", speak: "はちじ"};
+        case 9: return { text: "９時", speak: "くじ"};
         case 10: return { text: "１０時", speak: "じゅうじ"};
         case 11: return { text: "１１時", speak: "じゅういちじ"};
         case 12: return { text: "１２時", speak: "じゅうにじ"};
