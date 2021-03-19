@@ -19,6 +19,7 @@ export default class PresetIconButton extends React.Component {
     }
     componentWillUnmount() {
         this.unsubscribe()
+        this.setState = () => { }
     }
     render() {
         return (

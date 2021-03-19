@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 
 import { PresetCheckBox } from '../components/PresetCheckBox'
 import IconButton from '../components/IconButton'
@@ -79,7 +79,11 @@ export class NumberPreset extends React.Component {
                         onPress={() => {
                             this.props.navigation.push(
                                 `${this.props.route.params.mode} Trainer Screen`,
-                                { text: `${this.props.route.params.mode} Number Trainer Screen` }
+                                {
+                                    mode: this.props.route.params.mode,
+                                    type: "Number",
+                                    preset: store.getState().preset.number
+                                }
                             )
                         }} />
                 </View>
@@ -141,7 +145,11 @@ export class TimePreset extends React.Component {
                         onPress={() => {
                             this.props.navigation.push(
                                 `${this.props.route.params.mode} Trainer Screen`,
-                                { text: `${this.props.route.params.mode} Time & Date Trainer Screen` }
+                                {
+                                    mode: this.props.route.params.mode,
+                                    type: "Time & Date",
+                                    preset: store.getState().preset.time
+                                }
                             )
                         }} />
                 </View>
@@ -153,25 +161,41 @@ export class TimePreset extends React.Component {
 export class PracticeTrainer extends React.Component {
     constructor(props) {
         super(props)
-        this.history = [util.random(0, 100)]
+        this.type = this.props.route.params.type
+        this.preset = this.props.route.params.preset
+        this.caseGenerators = []
+        if (this.type === 'Number') {
+            this.caseGenerators.push(() => {
+                let text = util.random(0, 100)
+                let speak = lang.jp.convert(text)
+                return { text, speak }
+            })
+        } else {
+            if (this.preset.date) this.caseGenerators.push(lang.jp.randomDate)
+            if (this.preset.date_month) this.caseGenerators.push(lang.jp.randomDateMonth)
+            if (this.preset.month) this.caseGenerators.push(lang.jp.randomMonth)
+            if (this.preset.day) this.caseGenerators.push(lang.jp.randomDay)
+            if (this.preset.time) this.caseGenerators.push(lang.jp.randomTime)
+        }
+        this.history = [util.randomDraw(this.caseGenerators)()]
         this.state = {}
         this.state.position = 0
-        this.state.presentNumber = this.history[this.state.position]
+        this.state.present = this.history[this.state.position]
     }
     WordBack() {
         this.setState({
             position: this.state.position - 1,
-            presentNumber: this.history[this.state.position - 1]
+            present: this.history[this.state.position - 1]
         })
     }
     WordForward() {
         if (this.state.position + 1 === this.history.length) {
-            const newNumber = Math.round(util.random(0, 100))
-            this.history.push(newNumber)
+            const newWord = util.randomDraw(this.caseGenerators)()
+            this.history.push(newWord)
         }
         this.setState({
             position: this.state.position + 1,
-            presentNumber: this.history[this.state.position + 1]
+            present: this.history[this.state.position + 1]
         })
     }
     render() {
@@ -183,14 +207,14 @@ export class PracticeTrainer extends React.Component {
             }}>
                 <Text style={{
                     fontSize: 36
-                }}>{Math.round(this.state.presentNumber)}</Text>
+                }}>{this.state.present.text}</Text>
                 <Text style={{
                     marginTop: 24,
                     fontSize: 24,
                     marginLeft: "10%",
                     marginRight: "10%",
                     textAlign: "center"
-                }}>{lang.jp.convert(Math.round(this.state.presentNumber))}</Text>
+                }}>{this.state.present.speak}</Text>
                 <View
                     style={{
                         flexDirection: "row",
@@ -202,7 +226,7 @@ export class PracticeTrainer extends React.Component {
                         onPress={() => { }}
                         icon="pause" />
                     <SpeakButton
-                        text={lang.jp.convert(Math.round(this.state.presentNumber))}
+                        text={this.state.present.text}
                         lang="ja-JP" />
                 </View>
                 <View
