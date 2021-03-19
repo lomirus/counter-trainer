@@ -234,7 +234,7 @@ export class PracticeTrainer extends React.Component {
                         onPress={() => { }}
                         icon="pause" />
                     <SpeakButton
-                        text={this.state.present.text}
+                        text={this.state.present.text.toString()}
                         lang="ja-JP" />
                 </View>
                 <View
