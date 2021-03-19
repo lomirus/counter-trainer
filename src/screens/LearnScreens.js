@@ -15,10 +15,46 @@ export class NumberPreset extends React.Component {
         this.unsubscribe = store.subscribe(() => {
             this.setState(store.getState().preset.number)
         })
+        this.preset = {
+            min: store.getState().preset.number.min,
+            max: store.getState().preset.number.max
+        }
     }
     componentWillUnmount() {
         this.unsubscribe()
         this.setState = () => { }
+    }
+    nextClick() {
+        if (this.props.route.params.mode === 'Test') {
+            Alert.alert("Oops", "Test Screen is unavailable now.")
+            return
+        }
+        let min = parseFloat(this.preset.min);
+        let max = parseFloat(this.preset.max);
+        if (min.toString() === 'NaN' || max.toString() === 'NaN') {
+            Alert.alert("Oops", "Invalid Minimum or Maximum")
+            return
+        };
+        if (min > max) {
+            Alert.alert("Oops", "Minimum cannot be bigger than Maximum")
+            return
+        };
+        store.dispatch({
+            type: "CHANGE_PRESET_MIN_NUMBER",
+            payload: min
+        })
+        store.dispatch({
+            type: "CHANGE_PRESET_MAX_NUMBER",
+            payload: max
+        })
+        this.props.navigation.push(
+            `${this.props.route.params.mode} Trainer Screen`,
+            {
+                mode: this.props.route.params.mode,
+                type: "Number",
+                preset: store.getState().preset.number
+            }
+        )
     }
     render() {
         return (
@@ -41,6 +77,9 @@ export class NumberPreset extends React.Component {
                     <TextInput
                         placeholder="Min"
                         keyboardType="numeric"
+                        textAlign="center"
+                        defaultValue={store.getState().preset.number.min.toString()}
+                        onChangeText={text => this.preset.min = text}
                         underlineColorAndroid="gray" />
                     <Text style={{
                         height: 18
@@ -48,6 +87,9 @@ export class NumberPreset extends React.Component {
                     <TextInput
                         placeholder="Max"
                         keyboardType="numeric"
+                        textAlign="center"
+                        defaultValue={store.getState().preset.number.max.toString()}
+                        onChangeText={text => this.preset.max = text}
                         underlineColorAndroid="gray" />
                 </View>
                 <View
@@ -76,20 +118,7 @@ export class NumberPreset extends React.Component {
                 }}>
                     <Button
                         title="Next"
-                        onPress={() => {
-                            if (this.props.route.params.mode === 'Test') {
-                                Alert.alert("Oops", "Test Screen is unavailable now.")
-                                return
-                            }
-                            this.props.navigation.push(
-                                `${this.props.route.params.mode} Trainer Screen`,
-                                {
-                                    mode: this.props.route.params.mode,
-                                    type: "Number",
-                                    preset: store.getState().preset.number
-                                }
-                            )
-                        }} />
+                        onPress={() => this.nextClick()} />
                 </View>
             </View>
         )
@@ -174,10 +203,12 @@ export class PracticeTrainer extends React.Component {
         this.caseGenerators = []
         if (this.type === 'Number') {
             this.caseGenerators.push(() => {
-                let text = util.random(0, 100)
+                let text = util.random(this.preset.min, this.preset.max)
                 let speak = lang.jp.convert(text)
                 return { text, speak }
             })
+            console.log("Number Type")
+            console.log(this.preset)
         } else {
             if (this.preset.date) this.caseGenerators.push(lang.jp.randomDate)
             if (this.preset.date_month) this.caseGenerators.push(lang.jp.randomDateMonth)
