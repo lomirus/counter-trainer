@@ -19,20 +19,6 @@ class SettingsScreen extends React.Component {
                     alignItems: "center",
                     marginTop: 32
                 }}>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        width: "85%",
-                        height: 36
-                    }}>
-                    <Text style={{
-                        fontSize: 18
-                    }}>Auto Speak</Text>
-                    <Switch
-                        value={this.state.autoSpeak}
-                        onValueChange={autoSpeak => this.setState({ autoSpeak })} />
-                </View>
                 <SettingPicker
                     title="Display Language"
                     selectedValue={this.state.displayLanguage}
@@ -45,6 +31,21 @@ class SettingsScreen extends React.Component {
                     onValueChange={value => this.setState({ learnLanguage: value })}
                     items={["日本語"]}
                 />
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        width: "85%",
+                        height: 48,
+                        alignItems: "center",
+                    }}>
+                    <Text style={{
+                        fontSize: 18
+                    }}>Auto Speak</Text>
+                    <Switch
+                        value={this.state.autoSpeak}
+                        onValueChange={autoSpeak => this.setState({ autoSpeak })} />
+                </View>
                 <Pressable
                     android_ripple={{
                         color: "rgba(0,0,0,0.2)",
