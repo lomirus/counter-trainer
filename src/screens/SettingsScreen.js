@@ -1,14 +1,17 @@
 import React from 'react';
 import { View, Text, Switch, Pressable } from 'react-native';
+
 import SettingPicker from '../components/SettingPicker';
 
 class SettingsScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            autoSpeak: false,
             displayLanguage: "English",
-            learnLanguage: "日本語"
+            learnLanguage: "日本語",
+            autoSpeak: false,
+            autoNext: false,
+            nightMode: false,
         }
     }
     render() {
@@ -41,10 +44,40 @@ class SettingsScreen extends React.Component {
                     }}>
                     <Text style={{
                         fontSize: 18
+                    }}>Night Mode</Text>
+                    <Switch
+                        value={this.state.nightMode}
+                        onValueChange={nightMode => this.setState({ nightMode })} />
+                </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        width: "85%",
+                        height: 48,
+                        alignItems: "center",
+                    }}>
+                    <Text style={{
+                        fontSize: 18
                     }}>Auto Speak</Text>
                     <Switch
                         value={this.state.autoSpeak}
                         onValueChange={autoSpeak => this.setState({ autoSpeak })} />
+                </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        width: "85%",
+                        height: 48,
+                        alignItems: "center",
+                    }}>
+                    <Text style={{
+                        fontSize: 18
+                    }}>Auto Next</Text>
+                    <Switch
+                        value={this.state.autoNext}
+                        onValueChange={autoNext => this.setState({ autoNext })} />
                 </View>
                 <Pressable
                     android_ripple={{
