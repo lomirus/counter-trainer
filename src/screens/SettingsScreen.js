@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Switch } from 'react-native';
+import { View, Text, Switch, Pressable } from 'react-native';
 import SettingPicker from '../components/SettingPicker';
 
 class SettingsScreen extends React.Component {
@@ -45,6 +45,29 @@ class SettingsScreen extends React.Component {
                     onValueChange={value => this.setState({ learnLanguage: value })}
                     items={["日本語"]}
                 />
+                <Pressable
+                    android_ripple={{
+                        color: "rgba(0,0,0,0.2)",
+                        borderless: false,
+                    }}
+                    style={{
+                        height: 48,
+                        width: "100%",
+                        flexDirection: "row",
+                        justifyContent: "center"
+                    }}>
+                    <View style={{
+                        height: 48,
+                        width: "85%",
+                        flexDirection: "row",
+                        alignItems: "center",
+                    }}>
+                        <Text
+                            style={{
+                                fontSize: 18
+                            }}>About</Text>
+                    </View>
+                </Pressable>
             </View>
         )
     }
