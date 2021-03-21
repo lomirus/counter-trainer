@@ -10,6 +10,9 @@ export default class SpeakButton extends React.Component {
             icon: "volume-up",
             speaking: false
         }
+        if (props.onRef) {
+            props.onRef(this)
+        }
     }
     componentDidMount() {
         Tts.addEventListener('tts-finish', () => this.finishSpeak())

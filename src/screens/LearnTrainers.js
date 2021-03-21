@@ -4,6 +4,7 @@ import { View, Text } from 'react-native';
 import IconButton from '../components/IconButton'
 import SpeakButton from '../components/SpeakButton'
 import * as util from '../util'
+import { store } from '../store'
 import lang from '../languages/index'
 
 export class PracticeTrainer extends React.Component {
@@ -26,15 +27,16 @@ export class PracticeTrainer extends React.Component {
             if (this.preset.time) this.caseGenerators.push(lang.jp.randomTime)
         }
         this.history = [util.randomDraw(this.caseGenerators)()]
-        this.state = {}
-        this.state.position = 0
-        this.state.present = this.history[this.state.position]
+        this.state = {
+            position: 0,
+            present: this.history[0],
+        }
     }
     WordBack() {
         this.setState({
             position: this.state.position - 1,
             present: this.history[this.state.position - 1]
-        })
+        }, this.shouldSpeak)
     }
     WordForward() {
         if (this.state.position + 1 === this.history.length) {
@@ -43,8 +45,14 @@ export class PracticeTrainer extends React.Component {
         }
         this.setState({
             position: this.state.position + 1,
-            present: this.history[this.state.position + 1]
-        })
+            present: this.history[this.state.position + 1],
+        }, this.shouldSpeak)
+        
+    }
+    shouldSpeak() {
+        if (store.getState().settings.autoSpeak) {
+            this.speaker.speak()
+        }
     }
     render() {
         return (
@@ -75,7 +83,8 @@ export class PracticeTrainer extends React.Component {
                         icon="pause" />
                     <SpeakButton
                         text={this.state.present.text.toString()}
-                        lang="ja-JP" />
+                        lang="ja-JP"
+                        onRef={speaker => this.speaker = speaker} />
                 </View>
                 <View
                     style={{
