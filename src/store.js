@@ -17,6 +17,13 @@ const defaultState = {
             day: false,
             time: true,
         }
+    },
+    settings: {
+        displayLanguage: "English",
+        learnLanguage: "日本語",
+        autoSpeak: false,
+        autoNext: false,
+        nightMode: false,
     }
 }
 
@@ -46,6 +53,18 @@ const reducer = (state = defaultState, action) => ({
             time: action.type === "CHANGE_PRESET_TIME" ?
                 !state.preset.time.time : state.preset.time.time,
         }
+    },
+    settings: {
+        displayLanguage: action.type === "CHANGE_DISPLAY_LANGUAGE" ?
+            action.payload : state.settings.displayLanguage,
+        learnLanguage: action.type === "CHANGE_LEARN_LANGUAGE" ?
+            action.payload : state.settings.learnLanguage,
+        autoSpeak: action.type === "CHANGE_AUTO_SPEAK" ?
+            !state.settings.autoSpeak : state.settings.autoSpeak,
+        autoNext: action.type === "CHANGE_AUTO_NEXT" ?
+            !state.settings.autoNext : state.settings.autoNext,
+        nightMode: action.type === "CHANGE_NIGHT_MODE" ?
+            !state.settings.nightMode : state.settings.nightMode,
     }
 })
 

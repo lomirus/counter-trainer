@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Switch, Pressable } from 'react-native';
+import { store } from '../store'
 
 import SettingPicker from '../components/SettingPicker';
 
@@ -13,6 +14,13 @@ class SettingsScreen extends React.Component {
             autoNext: false,
             nightMode: false,
         }
+        this.unsubscribe = store.subscribe(() => {
+            this.setState(store.getState().settings)
+        })
+    }
+    componentWillUnmount() {
+        this.setState = () => {}
+        this.unsubscribe()
     }
     render() {
         return (
@@ -25,13 +33,19 @@ class SettingsScreen extends React.Component {
                 <SettingPicker
                     title="Display Language"
                     selectedValue={this.state.displayLanguage}
-                    onValueChange={value => this.setState({ displayLanguage: value })}
+                    onValueChange={value => store.dispatch({
+                        type: "CHANGE_DISPLAY_LANGUAGE",
+                        payload: value
+                    })}
                     items={["English"]}
                 />
                 <SettingPicker
                     title="Learn Language"
                     selectedValue={this.state.learnLanguage}
-                    onValueChange={value => this.setState({ learnLanguage: value })}
+                    onValueChange={value => store.dispatch({
+                        type: "CHANGE_LEARN_LANGUAGE",
+                        payload: value
+                    })}
                     items={["日本語"]}
                 />
                 <View
@@ -47,7 +61,7 @@ class SettingsScreen extends React.Component {
                     }}>Night Mode</Text>
                     <Switch
                         value={this.state.nightMode}
-                        onValueChange={nightMode => this.setState({ nightMode })} />
+                        onValueChange={() => store.dispatch({ type: "CHANGE_NIGHT_MODE" })} />
                 </View>
                 <View
                     style={{
@@ -62,7 +76,7 @@ class SettingsScreen extends React.Component {
                     }}>Auto Speak</Text>
                     <Switch
                         value={this.state.autoSpeak}
-                        onValueChange={autoSpeak => this.setState({ autoSpeak })} />
+                        onValueChange={() => store.dispatch({ type: "CHANGE_AUTO_SPEAK" })} />
                 </View>
                 <View
                     style={{
@@ -77,7 +91,7 @@ class SettingsScreen extends React.Component {
                     }}>Auto Next</Text>
                     <Switch
                         value={this.state.autoNext}
-                        onValueChange={autoNext => this.setState({ autoNext })} />
+                        onValueChange={() => store.dispatch({ type: "CHANGE_AUTO_NEXT" })} />
                 </View>
                 <Pressable
                     android_ripple={{
