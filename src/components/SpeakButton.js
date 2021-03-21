@@ -42,10 +42,13 @@ export default class SpeakButton extends React.Component {
         }, 300)
     }
     finishSpeak(){
-        clearInterval(this.speakInterval)
-        this.setState({
-            icon: "volume-up",
-            speaking: false
+        return new Promise(resolve => {
+            Tts.stop()
+            clearInterval(this.speakInterval)
+            this.setState({
+                icon: "volume-up",
+                speaking: false
+            }, resolve)
         })
     }
     render() {

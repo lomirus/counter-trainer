@@ -33,21 +33,24 @@ export class PracticeTrainer extends React.Component {
         }
     }
     WordBack() {
-        this.setState({
-            position: this.state.position - 1,
-            present: this.history[this.state.position - 1]
-        }, this.shouldSpeak)
+        this.speaker.finishSpeak().then(() => {
+            this.setState({
+                position: this.state.position - 1,
+                present: this.history[this.state.position - 1]
+            }, this.shouldSpeak)
+        })
     }
     WordForward() {
-        if (this.state.position + 1 === this.history.length) {
-            const newWord = util.randomDraw(this.caseGenerators)()
-            this.history.push(newWord)
-        }
-        this.setState({
-            position: this.state.position + 1,
-            present: this.history[this.state.position + 1],
-        }, this.shouldSpeak)
-        
+        this.speaker.finishSpeak().then(() => {
+            if (this.state.position + 1 === this.history.length) {
+                const newWord = util.randomDraw(this.caseGenerators)()
+                this.history.push(newWord)
+            }
+            this.setState({
+                position: this.state.position + 1,
+                present: this.history[this.state.position + 1],
+            }, this.shouldSpeak)
+        })
     }
     shouldSpeak() {
         if (store.getState().settings.autoSpeak) {
