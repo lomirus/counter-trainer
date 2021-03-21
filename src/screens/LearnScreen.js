@@ -3,11 +3,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { LearnHomeScreen } from './LearnHomeScreen'
 import {
-    NumberPreset,
-    TimePreset,
     PracticeTrainer,
     TestTrainer
-} from './LearnScreens'
+} from './LearnTrainers'
+
+import {
+    NumberPreset,
+    TimePreset,
+} from './LearnPresets'
 
 const Stack = createStackNavigator()
 
