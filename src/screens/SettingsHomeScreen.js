@@ -103,6 +103,9 @@ export default class SettingsHomeScreen extends React.Component {
                         width: "100%",
                         flexDirection: "row",
                         justifyContent: "center"
+                    }}
+                    onPress={() => {
+                        this.props.navigation.push("About")
                     }}>
                     <View style={{
                         height: 48,
