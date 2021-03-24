@@ -44,7 +44,7 @@ export class PracticeTrainer extends React.Component {
         this.setState = () => { }
     }
     WordBack() {
-        this.finishSpeak().then(() => {
+        this.cancelSpeak().then(() => {
             this.setState({
                 position: this.state.position - 1,
                 present: this.history[this.state.position - 1]
@@ -52,7 +52,7 @@ export class PracticeTrainer extends React.Component {
         })
     }
     WordForward() {
-        this.finishSpeak().then(() => {
+        this.cancelSpeak().then(() => {
             if (this.state.position + 1 === this.history.length) {
                 const newWord = util.randomDraw(this.caseGenerators)()
                 this.history.push(newWord)
@@ -64,7 +64,7 @@ export class PracticeTrainer extends React.Component {
         })
     }
     speak() {
-        this.finishSpeak().then(() => {
+        this.cancelSpeak().then(() => {
             this.speaking = true
             Tts.speak(this.state.present.text.toString())
             this.speakInterval = setInterval(() => {
@@ -79,7 +79,7 @@ export class PracticeTrainer extends React.Component {
             }, 300)
         })
     }
-    finishSpeak = () => {
+    cancelSpeak = () => {
         return new Promise(resolve => {
             if (this.speaking === false) {
                 resolve();
@@ -88,13 +88,22 @@ export class PracticeTrainer extends React.Component {
             Tts.stop()
             clearInterval(this.speakInterval)
             this.speaking = false
-            console.log('finish')
+            console.log('cancel')
             this.setState({ speakIcon: "volume-up" }, resolve)
         })
+    }
+    finishSpeak = () => {
+        this.cancelSpeak();
+        this.shouldNext()
     }
     shouldSpeak() {
         if (store.getState().settings.autoSpeak) {
             this.speak()
+        }
+    }
+    shouldNext() {
+        if (store.getState().settings.autoNext) {
+            this.WordForward()
         }
     }
     render() {
