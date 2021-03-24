@@ -31,6 +31,7 @@ export class PracticeTrainer extends React.Component {
             position: 0,
             present: this.history[0],
             speakIcon: "volume-up",
+            speaking: false
         }
     }
     componentDidMount() {
@@ -63,22 +64,30 @@ export class PracticeTrainer extends React.Component {
         })
     }
     speak() {
-        Tts.speak(this.state.present.text.toString())
-        this.speakInterval = setInterval(() => {
-            switch (this.state.speakIcon) {
-                case "volume-up":
-                    this.setState({ speakIcon: "volume-mute" }); break;
-                case "volume-mute":
-                    this.setState({ speakIcon: "volume-down" }); break;
-                case "volume-down":
-                    this.setState({ speakIcon: "volume-up" }); break;
-            }
-        }, 300)
+        this.finishSpeak().then(() => {
+            this.speaking = true
+            Tts.speak(this.state.present.text.toString())
+            this.speakInterval = setInterval(() => {
+                switch (this.state.speakIcon) {
+                    case "volume-up":
+                        this.setState({ speakIcon: "volume-mute" }); break;
+                    case "volume-mute":
+                        this.setState({ speakIcon: "volume-down" }); break;
+                    case "volume-down":
+                        this.setState({ speakIcon: "volume-up" }); break;
+                }
+            }, 300)
+        })
     }
     finishSpeak = () => {
         return new Promise(resolve => {
+            if (this.speaking === false) {
+                resolve();
+                return;
+            }
             Tts.stop()
             clearInterval(this.speakInterval)
+            this.speaking = false
             console.log('finish')
             this.setState({ speakIcon: "volume-up" }, resolve)
         })
