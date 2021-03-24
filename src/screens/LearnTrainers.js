@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import Tts from 'react-native-tts';
 
 import IconButton from '../components/IconButton'
-import SpeakButton from '../components/SpeakButton'
 import * as util from '../util'
 import { store } from '../store'
 import lang from '../languages/index'
@@ -30,10 +30,20 @@ export class PracticeTrainer extends React.Component {
         this.state = {
             position: 0,
             present: this.history[0],
+            speakIcon: "volume-up",
         }
     }
+    componentDidMount() {
+        Tts.setDefaultLanguage("ja-JP");
+        Tts.addEventListener('tts-finish', this.finishSpeak)
+    }
+    componentWillUnmount() {
+        clearInterval(this.speakInterval)
+        Tts.removeEventListener('tts-finish', this.finishSpeak)
+        this.setState = () => { }
+    }
     WordBack() {
-        this.speaker.finishSpeak().then(() => {
+        this.finishSpeak().then(() => {
             this.setState({
                 position: this.state.position - 1,
                 present: this.history[this.state.position - 1]
@@ -41,7 +51,7 @@ export class PracticeTrainer extends React.Component {
         })
     }
     WordForward() {
-        this.speaker.finishSpeak().then(() => {
+        this.finishSpeak().then(() => {
             if (this.state.position + 1 === this.history.length) {
                 const newWord = util.randomDraw(this.caseGenerators)()
                 this.history.push(newWord)
@@ -52,9 +62,30 @@ export class PracticeTrainer extends React.Component {
             }, this.shouldSpeak)
         })
     }
+    speak() {
+        Tts.speak(this.state.present.text.toString())
+        this.speakInterval = setInterval(() => {
+            switch (this.state.speakIcon) {
+                case "volume-up":
+                    this.setState({ speakIcon: "volume-mute" }); break;
+                case "volume-mute":
+                    this.setState({ speakIcon: "volume-down" }); break;
+                case "volume-down":
+                    this.setState({ speakIcon: "volume-up" }); break;
+            }
+        }, 300)
+    }
+    finishSpeak = () => {
+        return new Promise(resolve => {
+            Tts.stop()
+            clearInterval(this.speakInterval)
+            console.log('finish')
+            this.setState({ speakIcon: "volume-up" }, resolve)
+        })
+    }
     shouldSpeak() {
         if (store.getState().settings.autoSpeak) {
-            this.speaker.speak()
+            this.speak()
         }
     }
     render() {
@@ -84,10 +115,9 @@ export class PracticeTrainer extends React.Component {
                     <IconButton
                         onPress={() => { }}
                         icon="pause" />
-                    <SpeakButton
-                        text={this.state.present.text.toString()}
-                        lang="ja-JP"
-                        onRef={speaker => this.speaker = speaker} />
+                    <IconButton
+                        onPress={() => this.speak()}
+                        icon={this.state.speakIcon} />
                 </View>
                 <View
                     style={{
