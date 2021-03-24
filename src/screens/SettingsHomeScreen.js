@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Switch, Pressable } from 'react-native';
+import { View, Text, Switch, Pressable, StyleSheet } from 'react-native';
 import { store } from '../store'
 
 import SettingPicker from '../components/SettingPicker';
@@ -23,13 +23,29 @@ export default class SettingsHomeScreen extends React.Component {
         this.unsubscribe()
     }
     render() {
+        const styles = StyleSheet.create({
+            mainView: {
+                flex: 1,
+                alignItems: "center",
+                marginTop: 32
+            },
+            switchView: {
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "85%",
+                height: 48,
+                alignItems: "center",
+            },
+            about: {
+                height: 48,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "center"
+            }
+        }) 
         return (
             <View
-                style={{
-                    flex: 1,
-                    alignItems: "center",
-                    marginTop: 32
-                }}>
+                style={styles.mainView}>
                 <SettingPicker
                     title="Display Language"
                     selectedValue={this.state.displayLanguage}
@@ -49,28 +65,7 @@ export default class SettingsHomeScreen extends React.Component {
                     items={["日本語"]}
                 />
                 <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        width: "85%",
-                        height: 48,
-                        alignItems: "center",
-                    }}>
-                    <Text style={{
-                        fontSize: 18
-                    }}>Night Mode</Text>
-                    <Switch
-                        value={this.state.nightMode}
-                        onValueChange={() => store.dispatch({ type: "CHANGE_NIGHT_MODE" })} />
-                </View>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        width: "85%",
-                        height: 48,
-                        alignItems: "center",
-                    }}>
+                    style={styles.switchView}>
                     <Text style={{
                         fontSize: 18
                     }}>Auto Speak</Text>
@@ -79,13 +74,7 @@ export default class SettingsHomeScreen extends React.Component {
                         onValueChange={() => store.dispatch({ type: "CHANGE_AUTO_SPEAK" })} />
                 </View>
                 <View
-                    style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        width: "85%",
-                        height: 48,
-                        alignItems: "center",
-                    }}>
+                    style={styles.switchView}>
                     <Text style={{
                         fontSize: 18
                     }}>Auto Next</Text>
@@ -98,12 +87,7 @@ export default class SettingsHomeScreen extends React.Component {
                         color: "rgba(0,0,0,0.2)",
                         borderless: false,
                     }}
-                    style={{
-                        height: 48,
-                        width: "100%",
-                        flexDirection: "row",
-                        justifyContent: "center"
-                    }}
+                    style={styles.about}
                     onPress={() => {
                         this.props.navigation.push("About")
                     }}>
