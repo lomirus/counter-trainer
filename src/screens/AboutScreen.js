@@ -37,7 +37,7 @@ export default class AboutScreen extends React.Component {
                     }}>License: MIT</Text>
                     <Text style={{
                         color: '#666'
-                    }}>Version: 0.4.0</Text>
+                    }}>Version: 0.5.0</Text>
                 </View>
             </View>
         )
