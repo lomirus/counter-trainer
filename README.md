@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/lomirus/counter-trainer/blob/main/LICENSE)
 
-A Mobile App that helps you remember the numbers in foreign languages easily, especially in speaking and listening. It's still under development and unavailable now.
+A Mobile App that helps you memorize the numbers of foreign languages easily, especially in speaking and listening. It's still under development and unavailable now. However, you can try the pre-release version now.
 
 # Usage
 
